@@ -1,12 +1,19 @@
+// reactからuseContextをimport
+import { useContext } from "react";
+
+// 作成したContextをimport
+import { AdminFlagContext } from "./providers/AdminFlagProvider";
+
 const style = {
   width: "100px",
   padding: "6px",
   borderRadius: "8px",
 };
 
-export const EditButton = (props) => {
-  const { isAdmin } = props;
-  // isAdminがfalse（管理者でない）時にボタンを非活性にする
+export const EditButton = () => {
+  // Context内のisAdminを取得
+  const { isAdmin } = useContext(AdminFlagContext);
+
   return (
     <button
       style={style}
