@@ -1,4 +1,4 @@
-import { useState, memo, useCallback } from "react";
+import { useState, memo, useMemo } from "react";
 import { Child1 } from "./components/Child1";
 import { Child4 } from "./components/Child4";
 import "./index";
@@ -12,8 +12,9 @@ export const App = memo(() => {
     setNum(num + 1);
   };
 
-  const onClickReset = useCallback(() => {
-    setNum(0);
+  const sum = useMemo(() => {
+    console.log("sumレンダリング");
+    return 1 + 3;
   }, []);
 
   return (
@@ -26,8 +27,12 @@ export const App = memo(() => {
       </button>
       <p>{num}</p>
       {/* ↓Propsとして関数を設定 */}
-      <Child1 onClickReset={onClickReset} />
+      <Child1 />
       <Child4 />
+      {sum}
+      <br />
+      {sum}
+      <br />
     </>
   );
 });
