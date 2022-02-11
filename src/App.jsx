@@ -1,38 +1,25 @@
-import { useState, memo, useMemo } from "react";
-import { Child1 } from "./components/Child1";
-import { Child4 } from "./components/Child4";
-import "./index";
+import { useState } from "react";
+import { Card } from "./components/Card";
+import "./index.css";
 
-export const App = memo(() => {
-  console.log("App レンダリング");
+export const App = () => {
+  // 管理者フラグ
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const [num, setNum] = useState(0);
-
-  const onClickButton = () => {
-    setNum(num + 1);
-  };
-
-  const sum = useMemo(() => {
-    console.log("sumレンダリング");
-    return 1 + 3;
-  }, []);
+  // [切り替え]押下時
+  const onClickSwitch = () => setIsAdmin(!isAdmin);
 
   return (
-    <>
+    <div>
+      {/* 管理者フラグがtrueの時とそれ以外で文字を出し分け */}
+      {isAdmin ? <span>管理者です</span> : <span>管理者以外です</span>}
       <button
-        onClick={onClickButton}
+        onClick={onClickSwitch}
         className="bg-gray-300 border-0 p-2 rounded-md hover:bg-gray-400 hover:text-white"
       >
-        ボタン
+        切り替え
       </button>
-      <p>{num}</p>
-      {/* ↓Propsとして関数を設定 */}
-      <Child1 />
-      <Child4 />
-      {sum}
-      <br />
-      {sum}
-      <br />
-    </>
+      <Card isAdmin={isAdmin} />
+    </div>
   );
-});
+};
